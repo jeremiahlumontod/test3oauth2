@@ -12,6 +12,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 
+import javax.sql.DataSource;
+
 /**
  * Configures the authorization server.
  * The @EnableAuthorizationServer annotation is used to configure the OAuth 2.0 Authorization Server mechanism,
@@ -23,6 +25,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private DataSource dataSource;
 
 //    @Autowired
 //    private PasswordEncoder passwordEncoder;

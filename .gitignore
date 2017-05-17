@@ -24,3 +24,5 @@ nbdist/
 .nb-gradle/
 
 .DS_Store
+
+src/.DS_Store
