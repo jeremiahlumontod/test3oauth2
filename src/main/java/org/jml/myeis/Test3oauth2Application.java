@@ -22,7 +22,7 @@ public class Test3oauth2Application {
 	}
 
     @Autowired
-    public void authenticationManager2(AuthenticationManagerBuilder builder, UserRepository repo) throws Exception {
+    public void authenticationManagerNotRelatedToAutowiredAtAuthorizationServerConfig(AuthenticationManagerBuilder builder, UserRepository repo) throws Exception {
 
 	    if(repo.count()==0) {
 	        repo.save(new User("user","user",Arrays.asList(new Role("USER"),new Role("ACTUATOR"))));
