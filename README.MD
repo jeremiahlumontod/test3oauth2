@@ -1,5 +1,9 @@
 test3oaut
 
+spring boot 1.5.3, oauth2, mysql for users
+
+
+
 - get new token
 http://localhost:8080/oauth/token?grant_type=password&username=user&password=user
   result:
