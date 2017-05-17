@@ -37,7 +37,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private PasswordEncoder passwordEncoder;
 
     @Bean
-    public TokenStore getTokenStore() {
+    public TokenStore tokenStore() {
         return new JdbcTokenStore(dataSource);
     }
 
@@ -79,7 +79,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 //    }
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.jdbc(dataSource).passwordEncoder(passwordEncoder);
+        clients
+                .jdbc(dataSource)
+                .passwordEncoder(passwordEncoder);
     }
 
 
@@ -91,7 +93,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.authenticationManager(authenticationManager);
+        endpoints
+                .tokenStore(tokenStore())
+                .authenticationManager(authenticationManager);
     }
 
 
