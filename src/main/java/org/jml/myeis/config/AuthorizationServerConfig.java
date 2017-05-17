@@ -11,6 +11,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 import javax.sql.DataSource;
 
@@ -29,8 +33,23 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private DataSource dataSource;
 
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Bean
+    public TokenStore getTokenStore() {
+        return new JdbcTokenStore(dataSource);
+    }
+
+    @Bean
+    protected AuthorizationCodeServices authorizationCodeServices() {
+        return new JdbcAuthorizationCodeServices(dataSource);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     /**
      * We here defines the security constraints on the token endpoint.
@@ -49,14 +68,18 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      * @param clients
      * @throws Exception
      */
+//    @Override
+//    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+//        clients.inMemory().withClient("my-trusted-client")
+//                .authorizedGrantTypes("client_credentials", "password","refresh_token")
+//                .authorities("ROLE_CLIENT","ROLE_TRUSTED_CLIENT")
+//                .scopes("read","write","trust")
+//                .resourceIds("oauth2-resource").accessTokenValiditySeconds(5000)
+//                .secret("secret");
+//    }
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory().withClient("my-trusted-client")
-                .authorizedGrantTypes("client_credentials", "password","refresh_token")
-                .authorities("ROLE_CLIENT","ROLE_TRUSTED_CLIENT")
-                .scopes("read","write","trust")
-                .resourceIds("oauth2-resource").accessTokenValiditySeconds(5000)
-                .secret("secret");
+        clients.jdbc(dataSource).passwordEncoder(passwordEncoder);
     }
 
 
@@ -73,9 +96,5 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 
 
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 
 }
