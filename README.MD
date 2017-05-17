@@ -74,11 +74,9 @@ create table oauth_client_details (
   autoapprove VARCHAR(256)
 );
 
--- INSERT INTO oauth_client_details(client_id, resource_ids, client_secret, scope, authorized_grant_types, authorities, access_token_validity, refresh_token_validity)
--- VALUES ('rajith-client-id', 'rest_api', '12345', 'trust,read,write', 'password,authorization_code,refresh_token,implicit', 'ROLE_USER', '30', '1000');
 
-INSERT INTO oauth_client_details(client_id, resource_ids, client_secret, scope, authorized_grant_types, authorities, access_token_validity, refresh_token_validity)
-VALUES ('jml-client-id', 'oauth2-resource', '12345', 'trust,read,write', 'password,authorization_code,refresh_token,implicit', 'ROLE_USER', '30', '1000');
+-- INSERT INTO oauth_client_details(client_id, resource_ids, client_secret, scope, authorized_grant_types, authorities, access_token_validity, refresh_token_validity)
+-- VALUES ('jml-client-id', 'oauth2-resource', '12345', 'trust,read,write', 'password,authorization_code,refresh_token,implicit', 'ROLE_USER', '30', '1000');
 
 INSERT INTO oauth_client_details(client_id, resource_ids, client_secret, scope, authorized_grant_types, authorities, access_token_validity, refresh_token_validity)
 VALUES ('jml-client-id', 'rest_api', '12345', 'trust,read,write', 'password,authorization_code,refresh_token,implicit', 'ROLE_USER', '30', '1000');
