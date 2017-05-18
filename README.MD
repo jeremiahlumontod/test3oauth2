@@ -1,4 +1,4 @@
-test3oaut
+test3oauth2
 
 spring boot 1.5.3, oauth2, mysql for users
 
